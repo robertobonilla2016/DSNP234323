@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Notas - Promedio Final</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .form-label {
+            font-weight: bold;
+        }
+        .result-box {
+            background-color: #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #343a40;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app" class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card p-4">
+                    <h2 class="card-title text-center mb-4">Calculadora de Notas 🎓</h2>
+                    
+                    <form @submit.prevent="calcularPromedio">
+                        <div class="mb-3">
+                            <label for="bloque1" class="form-label">Nota Bloque 1 (20%):</label>
+                            <input type="number" id="bloque1" class="form-control" v-model.number="notas.bloque1" min="0" max="10" step="0.1" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="bloque2" class="form-label">Nota Bloque 2 (20%):</label>
+                            <input type="number" id="bloque2" class="form-control" v-model.number="notas.bloque2" min="0" max="10" step="0.1" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="bloque3" class="form-label">Nota Bloque 3 (20%):</label>
+                            <input type="number" id="bloque3" class="form-control" v-model.number="notas.bloque3" min="0" max="10" step="0.1" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="proyectoFinal" class="form-label">Nota Proyecto Final (40%):</label>
+                            <input type="number" id="proyectoFinal" class="form-control" v-model.number="notas.proyectoFinal" min="0" max="10" step="0.1" required>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">Calcular Promedio Final</button>
+                        </div>
+                    </form>
+
+                    <div v-if="promedioFinal !== null" class="mt-4">
+                        <h3 class="text-center mb-3">Tu Promedio Final es:</h3>
+                        <div class="result-box">
+                            {{ promedioFinal.toFixed(2) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                notas: {
+                    bloque1: null,
+                    bloque2: null,
+                    bloque3: null,
+                    proyectoFinal: null
+                },
+                promedioFinal: null
+            },
+            methods: {
+                calcularPromedio: function() {
+                    const b1 = this.notas.bloque1 * 0.20; // 20%
+                    const b2 = this.notas.bloque2 * 0.20; // 20%
+                    const b3 = this.notas.bloque3 * 0.20; // 20%
+                    const pf = this.notas.proyectoFinal * 0.40; // 40%
+
+                    this.promedioFinal = b1 + b2 + b3 + pf;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
